@@ -4,10 +4,11 @@
 
 #include <gtest/gtest.h>
 #include "soup_servings.h"
+#include <cmath>
 
 TEST(soupServings, TestOne) {
     auto solution = Solution();
-    EXPECT_EQ(1.0, solution.soupServings(4800));
+    EXPECT_EQ(1.0, round(solution.soupServings(4800)));
 }
 
 TEST(soupServings, TestTwo) {

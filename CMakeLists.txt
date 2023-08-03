@@ -10,12 +10,13 @@ include_directories(GTEST_INCLUDE_DIRS)
 
 enable_testing()
 
-file(GLOB cppplayground_SRC
-        "*.cpp"
-        "*.h"
-)
+add_library(${PROJECT_NAME} SHARED maximum_value_at_given_index_in_bounded_array.h
+        maximum_value_at_given_index_in_bounded_array.cpp
+        soup_servings.h
+        soup_servings.cpp)
+add_executable(${PROJECT_NAME}_tests maximum_value_at_given_index_in_bounded_array_tests.cpp
+        soup_servings_tests.cpp)
 
-add_library(cppplayground SHARED ${cppplayground_SRC})
-target_link_libraries(cppplayground GTest::gtest_main)
+target_link_libraries(${PROJECT_NAME}_tests GTest::gtest_main ${PROJECT_NAME})
 
-gtest_discover_tests(cppplayground)
+gtest_discover_tests(${PROJECT_NAME}_tests)

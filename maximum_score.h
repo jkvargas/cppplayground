@@ -18,7 +18,6 @@ public:
 
 private:
     int calc(int pos_right, int pos_left, vector<int> &nums, int pos_mul, vector<int> &multipliers, unordered_map<size_t, int> &map);
-    std::size_t hashFunction(int pos_right, int pos_left, int pos_mul);
 };
 
 

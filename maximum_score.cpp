@@ -14,7 +14,7 @@ int maximum_score::calc(int pos_right, int pos_left, vector<int>& nums, int pos_
     if (pos_mul == multipliers.size())
         return 0;
 
-    auto hash = hashFunction(pos_right, pos_left, pos_mul);
+    size_t hash = (pos_mul << 20) ^ (pos_left << 10) ^ pos_right;
 
     if (map.contains(hash))
         return map[hash];
@@ -22,15 +22,31 @@ int maximum_score::calc(int pos_right, int pos_left, vector<int>& nums, int pos_
     auto left = multipliers[pos_mul] * nums[pos_left] + calc(pos_right, pos_left + 1, nums, pos_mul + 1, multipliers, map);
     auto right = multipliers[pos_mul] * nums[pos_right] + calc(pos_right - 1, pos_left, nums, pos_mul + 1, multipliers, map);
 
-    return map[hash] = max(left, right);
+    map[hash] = max(left, right);
+
+    return map[hash];
 }
 
-std::size_t maximum_score::hashFunction(int pos_right, int pos_left, int pos_mul) {
-    std::size_t hash_value = 0;
-
-    hash_value += 3 * pos_right;
-    hash_value += 5 * pos_left;
-    hash_value += 7 * pos_mul;
-
-    return hash_value;
-}
+// A better solution
+//class Solution {
+//public:
+//
+//    int maximumScore(vector<int>& nums, vector<int>& multipliers) {
+//        int m=multipliers.size();
+//        if(m==0) return 0;
+//
+//        vector t(m+1, vector<int>(m+1, INT_MIN));
+//
+//        return helper(nums, multipliers, t, 0,0);
+//    }
+//
+//    int helper(vector<int>& nums, vector<int>& multipliers, vector<vector<int>>& t, int op, int left){
+//        if(op ==  multipliers.size()) return 0;
+//
+//        if(t[op][left]!=INT_MIN) return t[op][left];
+//
+//        int n=nums.size();
+//        return t[op][left]=max((helper(nums, multipliers, t, op+1, left+1)+ multipliers[op]*nums[left]), (helper(nums, multipliers, t, op+1, left)+multipliers[op]*nums[n-1-(op-left)]));
+//
+//    }
+//};

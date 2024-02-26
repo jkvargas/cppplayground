@@ -15,10 +15,13 @@ add_library(${PROJECT_NAME} SHARED maximum_value_at_given_index_in_bounded_array
         soup_servings.h
         soup_servings.cpp
         maximal_square.cpp
-        maximal_square.h)
+        maximal_square.h
+        maximum_score.cpp
+        maximum_score.h)
 add_executable(${PROJECT_NAME}_tests maximum_value_at_given_index_in_bounded_array_tests.cpp
         soup_servings_tests.cpp
-        maximal_square_tests.cpp)
+        maximal_square_tests.cpp
+        maximum_score_tests.cpp)
 
 target_link_libraries(${PROJECT_NAME}_tests GTest::gtest_main ${PROJECT_NAME})
 

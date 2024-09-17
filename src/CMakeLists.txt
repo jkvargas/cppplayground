@@ -1,0 +1,7 @@
+file(GLOB_RECURSE SRC_BIN
+        CONFIGURE_DEPENDS
+        "${CMAKE_CURRENT_SOURCE_DIR}/*.[hc]"
+        "${CMAKE_CURRENT_SOURCE_DIR}/*.[hc]pp"
+)
+
+add_library(${PROJECT_NAME} SHARED ${SRC_BIN})

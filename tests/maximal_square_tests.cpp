@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "maximal_square.h"
+#include "../src/maximal_square.h"
 
 TEST(maximal_square, TestOne) {
     auto solution = maximal_square();

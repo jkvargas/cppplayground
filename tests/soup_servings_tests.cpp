@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "soup_servings.h"
+#include "../src/soup_servings.h"
 #include <cmath>
 
 TEST(soupServings, TestOne) {

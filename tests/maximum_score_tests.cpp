@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "maximum_score.h"
+#include "../src/maximum_score.h"
 
 TEST(maximum_score, TestOne) {
     auto par_a = vector<int> {1, 2, 3};

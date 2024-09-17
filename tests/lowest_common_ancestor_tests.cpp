@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "lowest_common_ancestor.h"
+#include "../src/lowest_common_ancestor.h"
 
 TEST(LCA, TestOne) {
     auto values = vector<optional<int>> { 3, 5, 1, 6, 2, 0, 8, nullopt, nullopt, 7, 4};

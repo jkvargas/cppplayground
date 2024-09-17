@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "maximum_value_at_given_index_in_bounded_array.h"
+#include "../src/maximum_value_at_given_index_in_bounded_array.h"
 
 TEST(maximum_value_at_given_index_in_bounded_array, TestOne) {
     auto solution = maximum_value_at_given_index_in_bounded_array();

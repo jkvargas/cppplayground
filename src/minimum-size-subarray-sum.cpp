@@ -50,5 +50,5 @@ TEST(min_sum_subarray_size, test_four) {
 TEST(min_sum_subarray_size, test_five) {
     Solution solution;
     std::vector<int> nums = {12,28,83,4,25,26,25,2,25,25,25,12};
-    ASSERT_EQ(8, solution.minSubArrayLen(213, nums));
+    ASSERT_EQ(7, solution.minSubArrayLen(213, nums));
 }

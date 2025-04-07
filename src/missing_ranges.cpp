@@ -31,7 +31,7 @@ class Solution {
     return std::move(result);
   }
 
-  std::vector<int> create_range(int min, int max) {
+  static std::vector<int> create_range(int min, int max) {
     std::vector<int> temp;
     temp.push_back(min);
     temp.push_back(max);

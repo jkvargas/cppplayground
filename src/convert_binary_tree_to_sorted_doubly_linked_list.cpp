@@ -94,4 +94,6 @@ TEST(convert_binary_tree_to_sorted_doubly_linked_list, test_one) {
 
     result = result->right;
   }
+
+  delete tree_node;
 }

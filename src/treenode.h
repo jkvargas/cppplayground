@@ -18,10 +18,12 @@ class TreeNode {
   TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 
   static TreeNode* from(std::vector<std::optional<int>> values);
+  std::vector<std::optional<int>> toVector() const;
 
   ~TreeNode() { deleteTree(this); }
 
  protected:
+  void toVectorHelper(std::vector<std::optional<int>>& out, int index) const;
   static TreeNode* fill(int index, std::vector<std::optional<int>>& values);
   static void deleteTree(TreeNode* root);
 };

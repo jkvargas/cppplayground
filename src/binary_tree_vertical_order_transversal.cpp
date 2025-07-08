@@ -1,5 +1,6 @@
 // https://leetcode.com/problems/binary-tree-vertical-order-traversal/?envType=company&envId=facebook&favoriteSlug=facebook-thirty-days
 
+#include <queue>
 #include "treenode.h"
 #include <vector>
 #include <gtest/gtest.h>
@@ -20,58 +21,58 @@ class Solution {
 public:
     int max_index, min_index;
 
-    // std::vector<std::vector<int>> verticalOrder(TreeNode* root) {
-    //     std::unordered_map<int, std::vector<int>> mid;
-    //     dfs(root, 0, mid, );
-    //
-    //     std::vector<std::vector<int>> result;
-    //     for (auto i = min_index; i <= max_index; i++) {
-    //         result.push_back(std::move(mid.at(i)));
-    //     }
-    //
-    //     return result;
-    // }
+    std::vector<std::vector<int>> verticalOrder(TreeNode* root) {
+        std::vector<std::vector<int>> result{};
+        if (root == nullptr) return result;
 
-    void dfs(TreeNode* node, int column, int line, std::unordered_map<int, std::vector<int>> &result) {
-        if (node == nullptr) return;
-        max_index = std::max(max_index, column);
-        min_index = std::min(min_index, column);
+        std::unordered_map<int, std::vector<int>> columnTable{};
+        std::queue<std::pair<TreeNode*, int>> queue{};
+        int column = 0;
 
-        if (node->left != nullptr) dfs(node->left, column - 1, line + 1, result);
+        queue.emplace(root, column);
 
-        if (!result.contains(column)) result.emplace(column, std::vector<int>());
-        result.at(column).push_back(node->val);
+        while (!queue.empty()) {
+            auto p = queue.front();
+            queue.pop();
 
-        if (node->right != nullptr) dfs(node->right, column + 1, line + 1, result);
+            auto item = p.first;
+            auto col = p.second;
+
+            if (item != nullptr) {
+                if (!columnTable.contains(col)) {
+                    auto list = std::vector<int>{};
+                    columnTable.emplace(col, list);
+                }
+                columnTable.at(col).push_back(item->val);
+                queue.emplace(item->left, col - 1);
+                queue.emplace(item->right, col + 1);
+            }
+        }
+
+        std::vector<int> keys{};
+        for (const auto& [key, _] : columnTable) {
+            keys.push_back(key);
+        }
+
+        std::sort(keys.begin(), keys.end());
+
+        for(int k : keys) {
+            result.push_back(columnTable.at(k));
+        }
+
+        return result;
     }
 };
 
-// TEST(binary_tree_vertical_order_transversal, test_two) {
-//     std::vector<std::optional<int>> items = {3,9,8,4,0,1,7};
-//     auto node = TreeNode::from(items);
-//     auto solution = Solution();
-//     auto result = solution.verticalOrder(node);
-//
-//     std::vector<std::vector<int>> vec = { { 4 }, { 0, 3, 1 }, { 1, 2 } };
-//
-//     for (int i = 0; i < vec.size(); i++) {
-//         ASSERT_EQ(vec[i], result[i]);
-//     }
-// }
-//
-// TEST(binary_tree_vertical_order_transversal, test_one) {
-//     std::vector<std::optional<int>> items = {3, 9, 20, std::nullopt, std::nullopt, 15, 7};
-//     auto node = TreeNode::from(items);
-//     auto solution = Solution();
-//     auto result = solution.verticalOrder(node);
-//
-//     std::vector first = { 9 };
-//     std::vector sec =  { 3, 15 };
-//     std::vector three = { 20 };
-//     std::vector four = { 7 };
-//
-//     ASSERT_EQ(first, result[0]);
-//     ASSERT_EQ(sec, result[1]);
-//     ASSERT_EQ(three, result[2]);
-//     ASSERT_EQ(four, result[3]);
-// }
+TEST(binary_tree_vertical_order_transversal, test_two) {
+    std::vector<std::optional<int>> items = {3,9,20,std::nullopt,std::nullopt,15,7};
+    auto node = TreeNode::from(items);
+    auto solution = Solution();
+    auto result = solution.verticalOrder(node);
+
+    std::vector<std::vector<int>> vec = { { 9 }, { 3, 15 }, {20}, {7} };
+
+    for (int i = 0; i < vec.size(); i++) {
+        ASSERT_EQ(vec[i], result[i]);
+    }
+}
